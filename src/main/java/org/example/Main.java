@@ -16,15 +16,19 @@ public class Main {
 
     public static void main(String[] args) {
         ArrayList<Employee> staff = loadStaffFromFile();
-        Collections.sort(staff, (o1, o2) -> {
-            return o1.getSalary().compareTo(o2.getSalary());
-        });
+        //сравнение и сортировка объектов * лямбда-выражения*
+        Collections.sort(staff, Comparator.comparing(Employee::getSalary));
 //           return (o1.getSalary()).compareTo(o2.getSalary())|(o1.getName().compareTo(o2.getName()));
 //        });
 
         for (Employee employee : staff) {
             System.out.println(employee);
         }
+        //увеличение зарплаты всех сотрудников *метод forEach и лямбда-выражения*
+        int salaryIncrease = 10000;
+        staff.forEach(employee -> employee.setSalary(employee.getSalary()+salaryIncrease));
+        System.out.println("\nNew salaries: ");
+        staff.forEach(System.out::println);
     }
 
     private static ArrayList<Employee> loadStaffFromFile() {
